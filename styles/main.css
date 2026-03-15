@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+
+
+:root{
+   ---primary-color: white;
+   --secondary-color: rgb(24, 182, 255);  
+}
+
+body{
+    background-color: var(---primary-color);
+}
+
+*{
+    font-family: "Comfortaa";
+}
+.mobileFramework{
+  max-width:1080px;
+  min-height:100vh;
+  margin:auto;
+  background-color:rgb(255, 255, 255);
+  border-color:black;
+  border-style: solid;
+  border-color:var(--secondary-color);
+  border-width:1px;
+  border-radius:25px;
+}
+
+.controlBoard{
+    position:fixed;
+    top:90%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    background-color:rgb(255, 255, 255);
+    padding:20px;
+    border-style: solid;
+    border-color:var(--secondary-color);
+    border-width:1px;
+    border-radius:25px;
+}
+
+.controlBoard button{
+    border-style: solid;
+    padding:5px;
+    padding-left:1.7rem;
+    padding-right:1.7rem;
+    border-color:var(--secondary-color);
+    border-radius:25px;
+    border-width:1px;
+    background-color:var(---primary-color);
+}
