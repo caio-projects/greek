@@ -33,6 +33,16 @@ body{
 .mobileFramework h1{
     text-align: center;
 }
+
+.content *{
+    font-family:'EB Garamond', serif;
+    font-style:italic;
+    font-size:6vmin;
+    margin:auto;
+    line-height:14vmin;
+}
+
+
 .controlBoard{
     position: fixed;
     top: 90%;
@@ -59,11 +69,4 @@ body{
     border-radius:25px;
     border-width:1px;
     background-color:var(---third-color);
-}
-.content *{
-    font-family:'EB Garamond', serif;
-    font-style:italic;
-    font-size:6vmin;
-    margin:auto;
-    line-height:14vmin;
 }
