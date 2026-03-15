@@ -34,14 +34,14 @@ body{
     text-align: center;
 }
 
-.content *{
+.content span{
+    display: inline-block;
     font-family:'EB Garamond', serif;
-    font-style:italic;
-    font-size:6vmin;
-    margin:auto;
-    line-height:14vmin;
+    font-style: italic;
+    font-size: 6vmin;
+    line-height: 14vmin;
+    margin: 0 0.15rem;
 }
-
 
 .controlBoard{
     position: fixed;
