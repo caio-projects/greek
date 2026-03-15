@@ -45,7 +45,7 @@ body{
 
 .controlBoard{
     position: fixed;
-    top: 90%;
+    bottom: 15px;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgb(255, 255, 255);
@@ -53,7 +53,6 @@ body{
     width: fit-content;
     border: 1px solid var(--secondary-color);
     border-radius: 25px;
-
     display: flex;          /* keeps buttons in a row */
     gap: 10px;              /* space between buttons */
 }
