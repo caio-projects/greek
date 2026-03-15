@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 
 :root{
    ---primary-color: white;
    --secondary-color: rgb(24, 182, 255);  
+   --third-color: rgb(53, 177, 235);
 }
 
 body{
@@ -12,7 +13,10 @@ body{
 
 *{
     font-family: "Comfortaa";
+    font-size:4vmin;
+    color:rgb(71, 71, 71);
 }
+
 .mobileFramework{
   max-width:1080px;
   min-height:100vh;
@@ -23,28 +27,42 @@ body{
   border-color:var(--secondary-color);
   border-width:1px;
   border-radius:25px;
+  padding:2.5rem;
 }
 
+.mobileFramework h1{
+    text-align: center;
+}
 .controlBoard{
-    position:fixed;
-    top:90%;
-    left:50%;
+    position: fixed;
+    top: 90%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    background-color:rgb(255, 255, 255);
-    padding:20px;
-    border-style: solid;
-    border-color:var(--secondary-color);
-    border-width:1px;
-    border-radius:25px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    width: fit-content;
+    border: 1px solid var(--secondary-color);
+    border-radius: 25px;
+
+    display: flex;          /* keeps buttons in a row */
+    gap: 10px;              /* space between buttons */
 }
 
 .controlBoard button{
+    color:var(--third-color);
     border-style: solid;
     padding:5px;
+    padding-top:2px;
     padding-left:1.7rem;
     padding-right:1.7rem;
     border-color:var(--secondary-color);
     border-radius:25px;
     border-width:1px;
-    background-color:var(---primary-color);
+    background-color:var(---third-color);
+}
+.content *{
+    font-family:'EB Garamond', serif;
+    font-style:italic;
+    font-size:6vmin;
+    margin:auto;
 }
