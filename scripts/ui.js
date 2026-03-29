@@ -12,7 +12,8 @@ function separateContent(){
     for(let word = 0; word <= mainArray.length-1; word++){
         var span = document.createElement('span');
         span.textContent = mainArray[word];
-        span.style.color = dye(mainArray[word]);
+        span.style.color = dye(mainArray[word])[0];
+        span.title = dye(mainArray[word])[1];
         span.onclick = () => loadPopUp(mainArray[word]);
         contentDiv.appendChild(span); 
     };
