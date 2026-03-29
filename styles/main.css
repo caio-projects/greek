@@ -87,7 +87,7 @@ body{
 }
 
 /* Modal Content */
-.modal-content {
+.modal-content{
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -95,6 +95,10 @@ body{
   width: 80%;
 }
 
+.modal-content *{
+    font-family:'EB Garamond', serif;
+    font-size: 4vmin;
+}
 .modal-content #content-word{
     display: inline-block;
     font-family:'EB Garamond', serif;
