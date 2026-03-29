@@ -10,8 +10,11 @@ async function loadDictionary() {
 
     dictionary = {};
     for (let key in raw) {
-        const normalizedKey = normalizeGreek(key);
-        dictionary[normalizedKey] = raw[key];
+        const normalizedKey = normalizeGreek(key); // normalize dictionary keys
+        dictionary[normalizedKey] = {
+            transliteration: raw[key].transliteration,
+            definition: raw[key].definition
+        };
     }
 }
 
@@ -48,22 +51,22 @@ async function findWord(givenWord) {
     // 2️⃣ Noun/Adjective declensions
     // -----------------------------
     const nounEndings = {
-        // First declension (mostly feminine)
-        "α": ["α"],
+        // First declension (mostly feminine) & second declension neuter
+        "α": ["α", "ον"],  // feminine α / neuter plural α
         "ας": ["α"],
         "ᾳ": ["α"],
         "αν": ["α"],
         "αι": ["α"],
         "αις": ["α"],
-        "ων": ["α"],
+        "ων": ["α", "ον"],  // feminine genitive plural & neuter genitive plural
 
-        // Second declension (masc/neut)
+        // Second declension masculine
         "ος": ["ος"],
-        "ου": ["ος"],
-        "ῳ": ["ος"],
-        "ον": ["ον"],
+        "ου": ["ος", "ον"],  // masculine genitive singular / neuter genitive singular
+        "ῳ": ["ος", "ον"],   // masculine / neuter dative singular
+        "ον": ["ον"],        // neuter singular nominative/accusative
         "οι": ["ος"],
-        "οις": ["ος"],
+        "οις": ["ος", "ον"],
         "ους": ["ος"],
 
         // Third declension fallback
@@ -72,7 +75,7 @@ async function findWord(givenWord) {
         "ῃ": ["η"],
         "ες": ["ης"]
     };
-
+    
     for (let ending in nounEndings) {
         if (word.endsWith(ending)) {
             const stem = word.slice(0, -ending.length);
