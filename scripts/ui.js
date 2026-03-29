@@ -6,7 +6,10 @@ function separateContent(){
     var contentDiv = document.getElementsByClassName("content")[0];
     var mainElement = document.getElementById("main-content");
     var mainContent = mainElement.textContent;
-    var mainArray = mainContent.split(" ");
+    var mainArray = mainContent
+    .split(/\s+/)
+    .map(word => word.replace(/[^\p{L}]+/gu, "")) // keep only letters
+    .filter(word => word.length > 0);
 
     mainElement.parentNode.removeChild(mainElement);
     for(let word = 0; word <= mainArray.length-1; word++){
@@ -18,6 +21,13 @@ function separateContent(){
         contentDiv.appendChild(span); 
     };
 };
+
+async function loadPopUp(word) {
+    const infos = await findWord(word);
+    if (infos) {
+        openPopUp(word, infos);
+    }
+}
 
 function openPopUp(word, infos){
     console.log(infos);

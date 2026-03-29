@@ -4,79 +4,69 @@ const caseColors = {
   dative: "red",
   accusative: "lightblue",
   vocative: "yellow",
-  verb: "orange"
+  verb: "orange",
+  ambiguous: "gray",
+  indeclinable: "black"
 };
 
 function identifyCase(word) {
-    if (typeof word !== "string") return "unknown";
+    if (typeof word !== "string") return ["unknown"];
 
     word = normalizeGreek(word.toLowerCase());
 
     const particles = [
-    "δε",   // but, and
-    "και",  // and, also
-    "γαρ",  // for
-    "ουν",  // therefore
-    "δη",   // indeed, now
-    "τοι",  // surely
-    "γε",   // at least, indeed
-    "τε",   // and (enclitic)
-    "μη",   // not (non-indicative)
-    "ου",   // not (indicative)
-    "ουκ",  // not (before vowel)
-    "ουχ",  // not (before rough breathing)
-    "η",    // or / than
-    "ει",   // if
-    "εαν",  // if (conditional)
-    "αν",   // modal particle
-    "κε",   // variant of αν (rare)
-    "περ",  // even, although
-    "μητι", // lest, perhaps
-    "μην",  // truly, indeed
-    "αρα",  // then, therefore (question nuance)
-    "αγε",  // come! (exhortation)
-    "ιδου"  // behold (technically interjection, but treat same)
+      "δε","και","γαρ","ουν","δη","τοι","γε","τε",
+      "μη","ου","ουκ","ουχ","η","ει","εαν","αν","κε",
+      "περ","μητι","μην","αρα","αγε","ιδου"
     ];
-    
+
     if (particles.includes(word)) {
-    return "particle";
-    }
-    // 1st declension
-    if (word.endsWith("α") || word.endsWith("η") || word.endsWith("αι")) {
-        return "nominative";
-    }
-    if (word.endsWith("ας") || word.endsWith("ης") || word.endsWith("ων")) {
-        return "genitive";
-    }
-    if (word.endsWith("ᾳ") || word.endsWith("ῃ") || word.endsWith("αις")) {
-        return "dative";
-    }
-    if (word.endsWith("αν") || word.endsWith("ην") || word.endsWith("ας")) {
-        return "accusative";
+        return ["indeclinable"];
     }
 
-    // 2nd declension
-    if (word.endsWith("ος") || word.endsWith("οι")) {
-        return "nominative";
-    }
-    if (word.endsWith("ου")) {
-        return "genitive";
-    }
-    if (word.endsWith("ῳ") || word.endsWith("οις")) {
-        return "dative";
-    }
-    if (word.endsWith("ον") || word.endsWith("ους")) {
-        return "accusative";
-    }
-    if (word.endsWith("ε")) {
-        return "vocative";
+    const prepositions = [
+      "προς","εν","εις","εκ","εξ","απο","δια","κατα",
+      "μετα","παρα","περι","υπερ","υπο","αντι","επι","προ"
+    ];
+
+    if (prepositions.includes(word)) {
+        return ["indeclinable"];
     }
 
-    return "unknown";
+    // --- Neuter ambiguity rules ---
+    if (word.endsWith("α") && word.length > 3) {
+        return ["nominative", "accusative"];
+    }
+
+    if (word.endsWith("ον")) {
+        return ["nominative", "accusative"];
+    }
+
+    // --- 1st declension ---
+    if (word.endsWith("αι")) return ["nominative"];
+    if (word.endsWith("η")) return ["nominative"];
+    if (word.endsWith("ας") || word.endsWith("ης") || word.endsWith("ων")) return ["genitive"];
+    if (word.endsWith("ᾳ") || word.endsWith("ῃ") || word.endsWith("αις")) return ["dative"];
+    if (word.endsWith("αν") || word.endsWith("ην")) return ["accusative"];
+
+    // --- 2nd declension ---
+    if (word.endsWith("ος") || word.endsWith("οι")) return ["nominative"];
+    if (word.endsWith("ου")) return ["genitive"];
+    if (word.endsWith("ῳ") || word.endsWith("οις")) return ["dative"];
+    if (word.endsWith("ους")) return ["accusative"];
+    if (word.endsWith("ε")) return ["vocative"];
+
+    return ["unknown"];
 }
 
 function dye(word) {
-  const grammaticalCase = identifyCase(word);
+  const cases = identifyCase(word);
+
+  if (cases.length > 1) {
+    return [caseColors.ambiguous, cases.join("/")];
+  }
+
+  const grammaticalCase = cases[0];
   const color = caseColors[grammaticalCase] || "black";
 
   return [color, grammaticalCase];
