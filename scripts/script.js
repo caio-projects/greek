@@ -69,6 +69,8 @@ async function findWord(givenWord) {
         "την": ["ho/he/to", "definite article (accusative feminine singular)"],
         "τον": ["ho/he/to", "definite article (accusative masculine singular)"],
         "τα": ["ho/he/to", "definite article (plural)"],
+        "ταις": ["ho/he/to", "definite article (dative plural feminine)"], // ✅ THIS
+
     };
 
     if (irregulars[word]) {
@@ -98,9 +100,13 @@ async function findWord(givenWord) {
             }
         }
     }
-    // 2. Handle common endings (THIS FIXES γλώσσαις)
-    const endings = ["αις", "ων", "ους", "οις", "αι", "ας", "οι"];
-
+        // 2. Handle common endings (THIS FIXES γλώσσαις)
+    const endings = [
+        "αις","οις","ους","ων",
+        "αι","οι","ας",
+        "ην","ης","ῃ", // 👈 important feminine endings
+        "ος","ον"
+    ];
     for (let ending of endings) {
         if (word.endsWith(ending)) {
             const stem = word.slice(0, -ending.length);
